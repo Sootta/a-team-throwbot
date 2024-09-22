@@ -1,10 +1,5 @@
 #include <Arduino.h>
 #include <PS4Controller.h>
-#include <ESP32Servo.h>
-
-Servo myServo;
-const int SERVO_PIN = 4;
-bool servo_dir = true;
 
 //跳ばすモーター２つ
 const int THR_RIGHT_DIR_PIN = 23;
@@ -43,9 +38,6 @@ void setup() {
   ledcAttachPin(THR_LEFT_PWM_PIN, 7);
   
   PS4.begin("48:E7:29:A3:C4:B8");
-
-  myServo.attach(SERVO_PIN);
-  myServo.write(90);
 }
 
 void loop() {
@@ -61,13 +53,6 @@ void loop() {
   int right_moter = PS4.RStickY();
   int left_moter = PS4.LStickY();
   
-  if(PS4.Circle()){
-    servo_dir = !servo_dir;
-    myServo.write(servo_dir ? 90:10);
-    Serial.println(servo_dir ? 90:10);
-    delay(500);
-  }
-
   //車輪のモーター-------------------------------------------------------------
   if(abs(right_moter) > 30){
     ledcWrite(4, abs(right_moter));
