@@ -92,6 +92,4 @@ void loop() {
     ledcWrite(6, 0);
     ledcWrite(7, 0);
   }
-
-  delay(100);
 }
